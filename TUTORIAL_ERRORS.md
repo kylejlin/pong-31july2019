@@ -25,3 +25,15 @@
    ```
 
    There is no `.with_bundle(WindowBundle::from_config_path(display_config_path))?`, it has been replaced with `.with_bundle(RenderingBundle::<DefaultBackend>::new()/*...*/)?;`.
+
+## 4.3
+
+No errors found.
+
+## 4.4
+
+No errors found.
+
+## 4.5
+
+No errors found.
