@@ -1,10 +1,12 @@
 //! Pong Tutorial 1
 
+mod audio;
 mod pong;
 mod systems;
 
 use crate::pong::Pong;
 
+use amethyst::audio::AudioBundle;
 use amethyst::core::transform::TransformBundle;
 use amethyst::input::{InputBundle, StringBindings};
 use amethyst::ui::{RenderUi, UiBundle};
@@ -17,6 +19,9 @@ use amethyst::{
     },
     utils::application_root_dir,
 };
+
+use crate::audio::Music;
+use amethyst::audio::DjSystem;
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
@@ -44,6 +49,12 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<StringBindings>::new())?
+        .with_bundle(AudioBundle::default())?
+        .with(
+            DjSystem::new(|music: &mut Music| music.music.next()),
+            "dj_system",
+            &[],
+        )
         .with(systems::PaddleSystem, "paddle_system", &["input_system"])
         .with(systems::MoveBallsSystem, "ball_system", &[])
         .with(
